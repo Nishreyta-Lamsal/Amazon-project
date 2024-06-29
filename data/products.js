@@ -656,5 +656,36 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: "id1",
+    image: "images/products/backpack.jpg",
+    name: "Backpack for Daily Wear",
+    rating: {
+      stars: 4,
+      count: 2215
+    },
+    priceCents: 3000,
+    keywords: [
+      "backpack",
+      "black",
+      "unisex"
+    ]
+  }, 
+  {
+    id: "id2",
+    image: "images/products/umbrella.jpg",
+    name: "Unique Foldable Umbrella",
+    rating: {
+      stars: 4.5,
+      count: 1000
+    },
+    priceCents: 1200,
+    keywords: [
+      "umbrella",
+      "green",
+      "unisex"
+    ]
+
   }
 ];
