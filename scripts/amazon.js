@@ -1,3 +1,6 @@
+//we want to import 'cart' variable from cart.js
+import {cart /**as myCart(if we need to avoid conflict with a variable named 'cart' in 'amazon.js' file)**/} from '../data/cart.js';
+
 // we usually use combination of arrays and objects to create a data structure
 // in javascript
 
@@ -66,6 +69,19 @@ products.forEach((product) => {
 
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
+// We're going to use an object to save the timeout ids.
+// The reason we use an object is because each product
+// will have its own timeoutId. So an object lets us
+// save multiple timeout ids for different products.
+// For example:
+// {
+//   'product-id1': 2,
+//   'product-id2': 5,
+//   ...
+// }
+// (2 and 5 are ids that are returned when we call setTimeout).
+const addedMessageTimeouts = {};
+
 document.querySelectorAll('.js-add-to-cart')
    .forEach((buttonElement) => {
     buttonElement.addEventListener('click', () => {
@@ -78,6 +94,7 @@ document.querySelectorAll('.js-add-to-cart')
     let matchingItem;
 
     //item contains product name and product quantity
+    //the cart is the same cart variable we created in cart.js
     cart.forEach((item) => {
       if(productId === item.productId){
         matchingItem = item;
@@ -111,6 +128,20 @@ document.querySelectorAll('.js-add-to-cart')
     const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
 
     addedMessage.classList.add('added-to-cart-visible');
+
+      //Check if there is a previous timeout for this product.
+      //If there is, we should stop it.
+      const previousTimeoutId = addedMessageTimeouts[productId];
+      if (previousTimeoutId){
+        clearTimeout(previousTimeoutId);
+      } 
+      const timeoutId = setTimeout(() => {
+      addedMessage.classList.remove('added-to-cart-visible');
+    }, 2000);
+
+    //Save the timeoutId for this product
+    //so we can stop it later if we need to.
+    addedMessageTimeouts[productId] = timeoutId;
 
    });
    });
