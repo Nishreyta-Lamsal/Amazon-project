@@ -1,5 +1,6 @@
 //we want to import 'cart' variable from cart.js
 import {cart /**as myCart(if we need to avoid conflict with a variable named 'cart' in 'amazon.js' file)**/} from '../data/cart.js';
+import{products} from '../data/products.js';
 
 // we usually use combination of arrays and objects to create a data structure
 // in javascript
