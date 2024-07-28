@@ -1,6 +1,7 @@
 //we want to import 'cart' variable from cart.js
 import {cart, addToCart /**as myCart(if we need to avoid conflict with a variable named 'cart' in 'amazon.js' file)**/} from '../data/cart.js';
 import{products} from '../data/products.js';
+import {formatCurrency} from './utils/money.js';
 
 // we usually use combination of arrays and objects to create a data structure
 // in javascript
@@ -29,7 +30,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            $${(product.priceCents / 100).toFixed(2)}
+            $${formatCurrency(product.priceCents)}
           </div>
 
           <div class="product-quantity-container">
