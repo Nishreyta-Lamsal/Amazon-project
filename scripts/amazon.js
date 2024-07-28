@@ -1,5 +1,5 @@
 //we want to import 'cart' variable from cart.js
-import {cart /**as myCart(if we need to avoid conflict with a variable named 'cart' in 'amazon.js' file)**/} from '../data/cart.js';
+import {cart, addToCart /**as myCart(if we need to avoid conflict with a variable named 'cart' in 'amazon.js' file)**/} from '../data/cart.js';
 import{products} from '../data/products.js';
 
 // we usually use combination of arrays and objects to create a data structure
@@ -83,6 +83,17 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML;
 // (2 and 5 are ids that are returned when we call setTimeout).
 const addedMessageTimeouts = {};
 
+
+function updateCartQuantity(){
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  })
+
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+}
+
 document.querySelectorAll('.js-add-to-cart')
    .forEach((buttonElement) => {
     buttonElement.addEventListener('click', () => {
@@ -91,39 +102,8 @@ document.querySelectorAll('.js-add-to-cart')
     //.productName is the same as product-name from the data attribute 
     //it just got converted from kebab case to camel case
     const productId = buttonElement.dataset.productId;
-
-    let matchingItem;
-
-    //item contains product name and product quantity
-    //the cart is the same cart variable we created in cart.js
-    cart.forEach((item) => {
-      if(productId === item.productId){
-        matchingItem = item;
-      }
-
-    });
-
-    const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-    //Values we get from DOM are string by default, so we convert the value to number
-    const quantity = Number(quantitySelector.value);
-
-    if(matchingItem){
-      matchingItem.quantity += quantity;
-    } else{
-      
-    cart.push({
-      productId : productId,
-      quantity: quantity
-    });
-
-    }
-
-    let cartQuantity = 0;
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    })
-
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    addToCart(productId);
+    updateCartQuantity();
 
     
     const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
