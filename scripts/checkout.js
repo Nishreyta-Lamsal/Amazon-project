@@ -1,7 +1,14 @@
 import {cart, removeFromCart, calculateCartQuantity,updateQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import {deliveryOptions} from '../data/deliveryOptions.js'
 
+const today = dayjs();
+//add seven days to the today's date
+const deliveryDate = today.add(7, 'days');
+//display the date in easy to read format
+deliveryDate.format('dddd, MMMM D');
 
 let cartSummaryHTML = '';
 
@@ -101,6 +108,13 @@ cart.forEach((cartItem) => {
 `;
 
 });
+
+function deliveryOptionsHTML(){
+  deliveryOptions.forEach((deliveryOption) => {
+    
+  })
+
+}
 
 document.querySelector('.js-order-Summary').innerHTML = cartSummaryHTML;
 
